@@ -59,13 +59,15 @@ bool compare_floats_with_set_percentage_ld(long double float1, long double float
 #define WRONG_TYPE( float1, float2 ) \
   _Static_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
 
-#   endif /* defined(SUPPORTS_GENERIC) */
+#   else /* defined(SUPPORTS_GENERIC) */
 
 #define COMPARE_FLOATS( float1, float2, percentage ) \
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
 
 #define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
+
+#   endif /* defined(SUPPORTS_GENERIC) */
 
 #  else /* isn't C11 */
 
