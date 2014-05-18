@@ -41,7 +41,7 @@
 #define WRONG_TYPE( float1, float2 ) \
   _Static_assert(1, "Wrong type(s) supplied to COMPARE_FLOATS");
 
-#   else /* defined(SUPPORTS_GENERIC) */
+#   endif /* defined(SUPPORTS_GENERIC) */
 
 #define COMPARE_FLOATS( float1, float2, percentage ) \
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
