@@ -12,7 +12,7 @@
  */
 #  if defined __STDC_VERSION__ == 201112L
 
-#define COMPARE_FLOATS( float1, float2, percantage ) \
+#define COMPARE_FLOATS( float1, float2, percentage ) \
   _Generic((float1), float: REAL_COMPARE_FLOATS, \
                      double: REAL_COMPARE_FLOATS, \
                      long double: REAL_COMPARE_FLOATS, \
@@ -38,7 +38,7 @@
 
 #  else
 
-#define COMPARE_FLOATS( float1, float2, percantage ) \
+#define COMPARE_FLOATS( float1, float2, percentage ) \
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
 
 #define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
