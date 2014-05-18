@@ -43,16 +43,15 @@ bool compare_floats_ld(long double float1, long double float2, long double perce
                      long double: compare_floats_with_set_percentage_ld, \
                      default: WRONG_TYPE)(float1, float2)
 
-bool compare_floats_with_set_percentage_f(float float1, float float2, float percentage) {
+bool compare_floats_with_set_percentage_f(float float1, float float2) {
   return ((float1 * 0.999f < float2) && (float2 * 0.999f < float1));
 }
 
-bool compare_floats_with_set_percentage_d(double float1, double float2, double percentage) {
+bool compare_floats_with_set_percentage_d(double float1, double float) {
   return ((float1 * 0.999 < float2) && (float2 * 0.999 < float1));
 }
 
-bool compare_floats_with_set_percentage_ld(long double float1, long double float2,
-                                           long double percentage) {
+bool compare_floats_with_set_percentage_ld(long double float1, long double float2) {
   return ((float1 * 0.999L < float2) && (float2 * 0.999L < float1));
 }
 
