@@ -8,7 +8,7 @@
  *   compare them for exact equality with =, as they can be numbers that might
  *   print the same number on the screen, but might not actually be exactly
  *   equal under the hood.
- * Use percentages like 0.95 with the first macro.
+ * Use modifiers like 0.95 with the first macro.
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
  * Generic version with C11 works only if you define SUPPORTS_GENERIC because
@@ -19,39 +19,39 @@
 
 #   if defined(SUPPORTS_GENERIC)
 
-#define COMPARE_FLOATS( float1, float2, percentage ) \
+#define COMPARE_FLOATS( float1, float2, modifier ) \
   _Generic((float1), float: compare_floats_f, \
                      double: compare_floats_d, \
                      long double: compare_floats_ld, \
-                     default: WRONG_TYPE)(float1, float2, percentage)
+                     default: WRONG_TYPE)(float1, float2, modifier)
 
-bool compare_floats_f(float float1, float float2, float percentage) {
-  return ((float1 * percentage < float2) && (float2 * percentage < float1));
+bool compare_floats_f(float float1, float float2, float modifier) {
+  return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-bool compare_floats_d(double float1, double float2, double percentage) {
-  return ((float1 * percentage < float2) && (float2 * percentage < float1));
+bool compare_floats_d(double float1, double float2, double modifier) {
+  return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-bool compare_floats_ld(long double float1, long double float2, long double percentage) {
-  return ((float1 * percentage < float2) && (float2 * percentage < float1));
+bool compare_floats_ld(long double float1, long double float2, long double modifier) {
+  return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-#define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
-  _Generic((float1), float: compare_floats_with_set_percentage_f, \
-                     double: compare_floats_with_set_percentage_d, \
-                     long double: compare_floats_with_set_percentage_ld, \
+#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
+  _Generic((float1), float: compare_floats_static_mod_f, \
+                     double: compare_floats_static_mod_d, \
+                     long double: compare_floats_static_mod_ld, \
                      default: WRONG_TYPE)(float1, float2)
 
-bool compare_floats_with_set_percentage_f(float float1, float float2) {
+bool compare_floats_static_mod_f(float float1, float float2) {
   return ((float1 * 0.999f < float2) && (float2 * 0.999f < float1));
 }
 
-bool compare_floats_with_set_percentage_d(double float1, double float) {
+bool compare_floats_static_mod_d(double float1, double float) {
   return ((float1 * 0.999 < float2) && (float2 * 0.999 < float1));
 }
 
-bool compare_floats_with_set_percentage_ld(long double float1, long double float2) {
+bool compare_floats_static_mod_ld(long double float1, long double float2) {
   return ((float1 * 0.999L < float2) && (float2 * 0.999L < float1));
 }
 
@@ -60,20 +60,20 @@ bool compare_floats_with_set_percentage_ld(long double float1, long double float
 
 #   else /* defined(SUPPORTS_GENERIC) */
 
-#define COMPARE_FLOATS( float1, float2, percentage ) \
-  ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
+#define COMPARE_FLOATS( float1, float2, modifier ) \
+  ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
 
-#define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
+#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
 #   endif /* defined(SUPPORTS_GENERIC) */
 
 #  else /* isn't C11 */
 
-#define COMPARE_FLOATS( float1, float2, percentage ) \
-  ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
+#define COMPARE_FLOATS( float1, float2, modifier ) \
+  ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
 
-#define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
+#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
 #  endif /* C11 */
