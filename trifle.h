@@ -10,7 +10,7 @@
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
  */
-#  if defined __STDC_VERSION__ == 201112L
+#  if __STDC_VERSION__ == 201112L
 
 #define COMPARE_FLOATS( float1, float2, percentage ) \
   _Generic((float1), float: REAL_COMPARE_FLOATS, \
