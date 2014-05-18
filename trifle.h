@@ -9,8 +9,13 @@
  * Use percentages like 0.95 with the first macro.
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
+ * Generic version with C11 works only if you define SUPPORTS_GENERIC as
+ *   some compilers still don't support _Generic.
  */
-#  if __STDC_VERSION__ == 201112L
+# if defined(__STDC__)
+#  if defined(__STDC_VERSION__) && (__STDC_VERSION__ == 201112L) /* C11 */
+
+#   if defined(SUPPORTS_GENERIC)
 
 #define COMPARE_FLOATS( float1, float2, percentage ) \
   _Generic((float1), float: REAL_COMPARE_FLOATS, \
@@ -36,7 +41,7 @@
 #define WRONG_TYPE( float1, float2 ) \
   _Static_assert(1, "Wrong type(s) supplied to COMPARE_FLOATS");
 
-#  else
+#   else /* defined(SUPPORTS_GENERIC) */
 
 #define COMPARE_FLOATS( float1, float2, percentage ) \
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
@@ -44,6 +49,15 @@
 #define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
-#  endif
+#  else /* isn't C11 */
 
-#endif // TRIFLE_H_INCLUDED
+#define COMPARE_FLOATS( float1, float2, percentage ) \
+  ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
+
+#define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
+  ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
+
+#  endif /* C11 */
+# endif /* defined(__STDC__) */
+
+#endif /* TRIFLE_H_INCLUDED */
