@@ -8,7 +8,8 @@
  *   compare them for exact equality with =, as they can be numbers that might
  *   print the same number on the screen, but might not actually be exactly
  *   equal under the hood.
- * Use modifiers like 0.95 with the first macro.
+ * Use modifiers like 0.95 with the COMPARE_FLOATS macro. The other one has a
+ *   static modifier, that should be good enough for general cases.
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
  * Generic version with C11 works only if you define SUPPORTS_GENERIC because
