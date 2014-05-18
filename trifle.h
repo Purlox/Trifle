@@ -14,7 +14,7 @@
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
 
 #define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
-  ( (float1) * 0.98 < (float2) && (float2) * 0.98 < (float1) )
+  ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
 
 #endif // TRIFLE_H_INCLUDED
