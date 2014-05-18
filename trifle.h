@@ -13,7 +13,7 @@
 #define COMPARE_FLOATS( float1, float2, percantage ) \
   ( (float1) * percentage < (float2) && (float2) * percentage < (float1) )
 
-#define _COMPARE_FLOATS( float1, float2 ) \
+#define COMPARE_FLOATS_WITH_SET_PERCENTAGE( float1, float2 ) \
   ( (float1) * 0.98 < (float2) && (float2) * 0.98 < (float1) )
 
 
