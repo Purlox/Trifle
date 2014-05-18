@@ -9,7 +9,7 @@
  * Use percentages like 0.95 with the first macro.
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
- * Generic version with C11 works only if you define SUPPORTS_GENERIC as
+ * Generic version with C11 works only if you define SUPPORTS_GENERIC because
  *   some compilers still don't support _Generic.
  */
 # if defined(__STDC__)
