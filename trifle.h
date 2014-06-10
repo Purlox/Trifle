@@ -26,7 +26,7 @@ compare_floats_f(float float1,
                  float float2,
                  float modifier)
 {
-  return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
+	return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
 }
 
 static inline bool
@@ -34,7 +34,7 @@ compare_floats_d(double float1,
                  double float2,
                  double modifier)
 {
-  return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
+	return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
 }
 
 static inline bool
@@ -42,7 +42,7 @@ compare_floats_ld(long double float1,
                   long double float2,
                   long double modifier)
 {
-  return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
+	return ((float1 * modifier < float2)  &&  (float2 * modifier < float1));
 }
 
 #define COMPARE_FLOATS_CONST_MOD( float1, float2 )   \
