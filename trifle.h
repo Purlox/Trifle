@@ -49,7 +49,7 @@ compare_floats_ld(long double float1,
   _Generic((float1), float:       compare_floats_f,  \
                      double:      compare_floats_d,  \
                      long double: compare_floats_ld, \
-                     default: WRONG_TYPE)  \
+                     default: WRONG_TYPE)            \
                      (float1, float2, ADD_SUFFIX(float2, 0.999)
 
 #define WRONG_TYPE( ... ) \
