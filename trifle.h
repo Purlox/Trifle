@@ -15,9 +15,9 @@
  */
 #if defined(SUPPORTS_GENERIC)
 
-#define COMPARE_FLOATS( float1, float2, modifier ) \
-  _Generic((float1), float: compare_floats_f, \
-                     double: compare_floats_d, \
+#define COMPARE_FLOATS( float1, float2, modifier )   \
+  _Generic((float1), float:       compare_floats_f,  \
+                     double:      compare_floats_d,  \
                      long double: compare_floats_ld, \
                      default: WRONG_TYPE)(float1, float2, modifier)
 
@@ -33,9 +33,9 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
   return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-#define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
-  _Generic((float1), float: compare_floats_f, \
-                     double: compare_floats_d, \
+#define COMPARE_FLOATS_CONST_MOD( float1, float2 )   \
+  _Generic((float1), float:       compare_floats_f,  \
+                     double:      compare_floats_d,  \
                      long double: compare_floats_ld, \
                      default: WRONG_TYPE)  \
                      (float1, float2, ADD_SUFFIX(float2, 0.999)
@@ -65,7 +65,7 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
                       double:             number2,        \
                       long double:        number2 ## L,   \
                       short:              number2,        \
-                      unsigned short:     number2 ## u ,  \
+                      unsigned short:     number2 ## u,   \
                       int:                number2,        \
                       unsigned int:       number2 ## u,   \
                       long:               number2 ## L,   \
