@@ -42,7 +42,8 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
   _Generic((float1), float: compare_floats_f, \
                      double: compare_floats_d, \
                      long double: compare_floats_ld, \
-                     default: WRONG_TYPE)(float1, float2, 0.999L)
+                     default: WRONG_TYPE)  \
+                     (float1, float2, ADD_SUFFIX(float2, 0.999)
 
 #define WRONG_TYPE( float1, float2 ) \
   _const_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
@@ -67,5 +68,26 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
 
 #  endif /* C11 */
 # endif /* defined(__STDC__) */
+
+
+/* Adds the appropriate literal suffix to number2 (which should be a literal),
+ *     based on the type of number1, which should be a variable.
+ * - Aimed to be used with other Generic macros, where number1 is a variable
+ *     passed into the macro and number2 is a literal that needs to be of the
+ *     appropriate type depending on the type of number1.
+ */
+#define ADD_SUFFIX( number1, number2 )                  \
+  _Generic((number1), float:              number2 # f,  \
+                      double:             number2,      \
+                      long double:        number2 # L,  \
+                      short:              number2,      \
+                      unsigned short:     number2 # u   \
+                      int:                number2,      \
+                      unsigned int:       number2 # u,  \
+                      long:               number2 # L,  \
+                      unsigned long:      number2 # uL  \
+                      long long:          number2 # LL  \
+                      unsigned long long: number2 # uLL \
+                      default: WRONG_TYPE)
 
 #endif /* TRIFLE_H_INCLUDED */
