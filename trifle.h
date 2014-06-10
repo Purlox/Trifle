@@ -15,10 +15,7 @@
  * Generic version with C11 works only if you define SUPPORTS_GENERIC because
  *   some compilers still don't support _Generic.
  */
-# if defined(__STDC__)
-#  if defined(__STDC_VERSION__) && (__STDC_VERSION__ == 201112L) /* C11 */
-
-#   if defined(SUPPORTS_GENERIC)
+#if defined(SUPPORTS_GENERIC)
 
 #define COMPARE_FLOATS( float1, float2, modifier ) \
   _Generic((float1), float: compare_floats_f, \
@@ -48,7 +45,7 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
 #define WRONG_TYPE( float1, float2 ) \
   _const_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
 
-#   else /* defined(SUPPORTS_GENERIC) */
+#else /* defined(SUPPORTS_GENERIC) */
 
 #define COMPARE_FLOATS( float1, float2, modifier ) \
   ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
@@ -56,18 +53,7 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
 #define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
-#   endif /* defined(SUPPORTS_GENERIC) */
-
-#  else /* isn't C11 */
-
-#define COMPARE_FLOATS( float1, float2, modifier ) \
-  ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
-
-#define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
-  ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
-
-#  endif /* C11 */
-# endif /* defined(__STDC__) */
+#endif /* defined(SUPPORTS_GENERIC) */
 
 
 /* Adds the appropriate literal suffix to number2 (which should be a literal),
