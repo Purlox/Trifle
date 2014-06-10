@@ -9,7 +9,7 @@
  *   print the same number on the screen, but might not actually be exactly
  *   equal under the hood.
  * Use modifiers like 0.95 with the COMPARE_FLOATS macro. The other one has a
- *   static modifier, that should be good enough for general cases.
+ *   const modifier, that should be good enough for general cases.
  * I decided to use percantages that make the float smaller to prevent
  *   potential overflows.
  * Generic version with C11 works only if you define SUPPORTS_GENERIC because
@@ -38,33 +38,33 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
   return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
-  _Generic((float1), float: compare_floats_static_mod_f, \
-                     double: compare_floats_static_mod_d, \
-                     long double: compare_floats_static_mod_ld, \
+#define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
+  _Generic((float1), float: compare_floats_const_mod_f, \
+                     double: compare_floats_const_mod_d, \
+                     long double: compare_floats_const_mod_ld, \
                      default: WRONG_TYPE)(float1, float2)
 
-bool compare_floats_static_mod_f(float float1, float float2) {
+bool compare_floats_const_mod_f(float float1, float float2) {
   return ((float1 * 0.999f < float2) && (float2 * 0.999f < float1));
 }
 
-bool compare_floats_static_mod_d(double float1, double float) {
+bool compare_floats_const_mod_d(double float1, double float) {
   return ((float1 * 0.999 < float2) && (float2 * 0.999 < float1));
 }
 
-bool compare_floats_static_mod_ld(long double float1, long double float2) {
+bool compare_floats_const_mod_ld(long double float1, long double float2) {
   return ((float1 * 0.999L < float2) && (float2 * 0.999L < float1));
 }
 
 #define WRONG_TYPE( float1, float2 ) \
-  _Static_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
+  _const_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
 
 #   else /* defined(SUPPORTS_GENERIC) */
 
 #define COMPARE_FLOATS( float1, float2, modifier ) \
   ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
 
-#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
+#define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
 #   endif /* defined(SUPPORTS_GENERIC) */
@@ -74,7 +74,7 @@ bool compare_floats_static_mod_ld(long double float1, long double float2) {
 #define COMPARE_FLOATS( float1, float2, modifier ) \
   ( (float1) * modifier < (float2) && (float2) * modifier < (float1) )
 
-#define COMPARE_FLOATS_STATIC_MOD( float1, float2 ) \
+#define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
   ( (float1) * 0.999 < (float2) && (float2) * 0.999 < (float1) )
 
 #  endif /* C11 */
