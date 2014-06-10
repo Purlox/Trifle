@@ -42,7 +42,7 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
                      default: WRONG_TYPE)  \
                      (float1, float2, ADD_SUFFIX(float2, 0.999)
 
-#define WRONG_TYPE( float1, float2 ) \
+#define WRONG_TYPE( ... ) \
   _const_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
 
 #else /* defined(SUPPORTS_GENERIC) */
