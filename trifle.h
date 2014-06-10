@@ -51,7 +51,7 @@ compare_floats_ld(long double float1,
                      (float1, float2, ADD_SUFFIX(float2, 0.999)
 
 #define WRONG_TYPE( ... ) \
-  _Static_assert(0, "Wrong type(s) supplied to COMPARE_FLOATS(_CONST_MOD)");
+  _Static_assert(0, "Wrong type(s) supplied to COMPARE_FLOATS(_CONST_MOD)")
 
 #else /* defined(SUPPORTS_GENERIC) */
 
