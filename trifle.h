@@ -4,16 +4,14 @@
 #include <stdbool.h>
 
 /* Compares two floats if they are /likely/ the same number.
- * Floats are approximations to real numbers anyway, so you should never
- *   compare them for exact equality with =, as they can be numbers that might
- *   print the same number on the screen, but might not actually be exactly
- *   equal under the hood.
- * Use modifiers like 0.95 with the COMPARE_FLOATS macro. The other one has a
- *   const modifier, that should be good enough for general cases.
- * I decided to use percantages that make the float smaller to prevent
- *   potential overflows.
- * Generic version with C11 works only if you define SUPPORTS_GENERIC because
- *   some compilers still don't support _Generic.
+ * - You shouldn't be comparing floats with =, because they are approximations
+ *     to real numbers, so they might print the same number on the screen, but
+ *     might not actually be exactly equal under the hood causing the = return
+ *     false.
+ * - Use modifiers like 0.95 (less than 1) with the COMPARE_FLOATS macro. The
+ *     other macro has a constant modifier.
+ * - Generic version with C11 works only if you define SUPPORTS_GENERIC because
+ *     some compilers still don't support _Generic.
  */
 #if defined(SUPPORTS_GENERIC)
 
