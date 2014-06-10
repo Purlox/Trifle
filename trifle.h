@@ -72,6 +72,6 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
                       unsigned long:      number2 # uL  \
                       long long:          number2 # LL  \
                       unsigned long long: number2 # uLL \
-                      default: WRONG_TYPE)
+                      default:            number2)
 
 #endif /* TRIFLE_H_INCLUDED */
