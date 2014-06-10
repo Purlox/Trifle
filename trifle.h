@@ -39,22 +39,10 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
 }
 
 #define COMPARE_FLOATS_CONST_MOD( float1, float2 ) \
-  _Generic((float1), float: compare_floats_const_mod_f, \
-                     double: compare_floats_const_mod_d, \
-                     long double: compare_floats_const_mod_ld, \
-                     default: WRONG_TYPE)(float1, float2)
-
-bool compare_floats_const_mod_f(float float1, float float2) {
-  return ((float1 * 0.999f < float2) && (float2 * 0.999f < float1));
-}
-
-bool compare_floats_const_mod_d(double float1, double float) {
-  return ((float1 * 0.999 < float2) && (float2 * 0.999 < float1));
-}
-
-bool compare_floats_const_mod_ld(long double float1, long double float2) {
-  return ((float1 * 0.999L < float2) && (float2 * 0.999L < float1));
-}
+  _Generic((float1), float: compare_floats_f, \
+                     double: compare_floats_d, \
+                     long double: compare_floats_ld, \
+                     default: WRONG_TYPE)(float1, float2, 0.999L)
 
 #define WRONG_TYPE( float1, float2 ) \
   _const_assert(true, "Wrong type(s) supplied to COMPARE_FLOATS");
