@@ -21,7 +21,7 @@
                      long double: compare_floats_ld, \
                      default: WRONG_TYPE)(float1, float2, modifier)
 
-bool
+static inline bool
 compare_floats_f(float float1,
                  float float2,
                  float modifier)
@@ -29,7 +29,7 @@ compare_floats_f(float float1,
   return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-bool
+static inline bool
 compare_floats_d(double float1,
                  double float2,
                  double modifier)
@@ -37,7 +37,7 @@ compare_floats_d(double float1,
   return ((float1 * modifier < float2) && (float2 * modifier < float1));
 }
 
-bool
+static inline bool
 compare_floats_ld(long double float1,
                   long double float2,
                   long double modifier)
