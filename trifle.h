@@ -61,17 +61,17 @@ bool compare_floats_ld(long double float1, long double float2, long double modif
  *     appropriate type depending on the type of number1.
  */
 #define ADD_SUFFIX( number1, number2 )                  \
-  _Generic((number1), float:              number2 # f,  \
+  _Generic((number1), float:              number2 ## f,  \
                       double:             number2,      \
-                      long double:        number2 # L,  \
+                      long double:        number2 ## L,  \
                       short:              number2,      \
-                      unsigned short:     number2 # u   \
+                      unsigned short:     number2 ## u   \
                       int:                number2,      \
-                      unsigned int:       number2 # u,  \
-                      long:               number2 # L,  \
-                      unsigned long:      number2 # uL  \
-                      long long:          number2 # LL  \
-                      unsigned long long: number2 # uLL \
+                      unsigned int:       number2 ## u,  \
+                      long:               number2 ## L,  \
+                      unsigned long:      number2 ## uL  \
+                      long long:          number2 ## LL  \
+                      unsigned long long: number2 ## uLL \
                       default:            number2)
 
 #endif /* TRIFLE_H_INCLUDED */
